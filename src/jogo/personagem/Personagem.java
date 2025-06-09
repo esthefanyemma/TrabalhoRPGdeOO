@@ -15,5 +15,28 @@ public abstract class Personagem {
         this.pontosDeVida -= Math.max(dano, 0);
     }
 
-    // Getters e setters podem ser adicionados aqui
+    public String getResumo() {
+        return String.format("%s (%s) (Vida: %d | Ataque: %d | Defesa: %d | Alcance: %d)",
+                nome, this.getClass().getSimpleName(), pontosDeVida, forcaDeAtaque, forcaDeDefesa, alcanceDeAtaque);
+    }
+
+    public int getLinha() {
+        return linha;
+    }
+
+    public  int getColuna() {
+        return coluna;
+    }
+
+    public void setLinha(int linha) {
+        this.linha = linha;
+    }
+
+    public void setColuna(int coluna) {
+        this.coluna = coluna;
+    }
+
+    public String getNome() {
+        return nome;
+    }
 }
