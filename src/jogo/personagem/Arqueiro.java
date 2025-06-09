@@ -1,5 +1,7 @@
 package jogo.personagem;
 
+import jogo.Tabuleiro;
+
 public class Arqueiro extends Personagem {
     public Arqueiro(String nome) {
         this.nome = nome;
@@ -9,7 +11,8 @@ public class Arqueiro extends Personagem {
     }
 
     @Override
-    public void usarPoderEspecial() {
-        System.out.println(nome + " usou o poder especial: Flecha Precisa!");
+    public void usarPoderEspecial(Personagem inimigo, Tabuleiro tabuleiro) {
+        this.alcanceDeAtaque++;
+        System.out.println(nome + " usou o poder especial e aumentou seu alcance de ataque para " + alcanceDeAtaque + ".");
     }
 }

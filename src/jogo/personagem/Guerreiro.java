@@ -1,5 +1,7 @@
 package jogo.personagem;
 
+import jogo.Tabuleiro;
+
 public class Guerreiro extends Personagem {
     public Guerreiro(String nome) {
         this.nome = nome;
@@ -9,7 +11,8 @@ public class Guerreiro extends Personagem {
     }
 
     @Override
-    public void usarPoderEspecial() {
-        System.out.println(nome + " usou o poder especial: Carga Brutal!");
+    public void usarPoderEspecial(Personagem inimigo, Tabuleiro tabuleiro) {
+        this.alcanceDeAtaque = 30;
+        System.out.println(nome + " usou o poder especial e aumentou seu alcance de ataque para " + alcanceDeAtaque + ".");
     }
 }

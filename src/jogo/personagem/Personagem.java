@@ -1,5 +1,7 @@
 package jogo.personagem;
 
+import jogo.Tabuleiro;
+
 public abstract class Personagem {
     protected String nome;
     protected int pontosDeVida = 100;
@@ -9,11 +11,7 @@ public abstract class Personagem {
     protected int linha;
     protected int coluna;
 
-    public abstract void usarPoderEspecial();
-
-    public void receberDano(int dano) {
-        this.pontosDeVida -= Math.max(dano, 0);
-    }
+    public abstract void usarPoderEspecial(Personagem inimigo, Tabuleiro tabuleiro);
 
     public String getResumo() {
         return String.format("%s (%s) (Vida: %d | Ataque: %d | Defesa: %d | Alcance: %d)",
@@ -39,4 +37,68 @@ public abstract class Personagem {
     public String getNome() {
         return nome;
     }
+
+    public int getPontosDeVida() {
+        return pontosDeVida;
+    }
+
+    public void setPontosDeVida(int pontosDeVida) {
+        this.pontosDeVida = pontosDeVida;
+    }
+
+    public void mover(String direcao, Tabuleiro tabuleiro) {
+        int novaLinha = linha;
+        int novaColuna = coluna;
+
+        switch (direcao.toLowerCase()) {
+            case "Cima" -> novaLinha--;
+            case "Baixo" -> novaLinha++;
+            case "Esquerda" -> novaColuna--;
+            case "Direita" -> novaColuna++;
+            default -> {
+                System.out.println("Direção inválida. Use 'Cima', 'Baixo', 'Esquerda' ou 'Direita'.");
+                return;
+            }
+        }
+
+        if (tabuleiro.estaDentroDosLimites(novaLinha, novaColuna)
+            && !tabuleiro.posicaoOcupada(novaLinha, novaColuna)) {
+        tabuleiro.moverPersonagem(this, novaLinha, novaColuna);
+        System.out.println("Movimentado para (" + novaLinha + ", " + novaColuna + ")");
+        } else {
+        System.out.println("Movimento inválido.");
+        }
+    }
+
+    public void atacar(Personagem inimigo, Tabuleiro tabuleiro) {
+        int distancia = tabuleiro.calcularDistancia(this, inimigo);
+
+        if (distancia > alcanceDeAtaque) {
+            System.out.println("Inimigo fora de alcance! Você perdeu a vez");
+            return;
+        }
+
+        int dano = Math.max(0, forcaDeAtaque - inimigo.forcaDeDefesa);
+        inimigo.receberDano(dano);
+        System.out.println(nome + " atacou " + inimigo.nome + " causando " + dano + " de dano!");
+    }
+
+    public void defender() {
+        System.out.println(nome + " está se defendendo! Defesa restaurada.");
+        restaurarDefesa();
+    }
+
+    public void restaurarDefesa() {
+        // Reseta para o valor original da subclasse
+        if (this instanceof Mago) this.forcaDeDefesa = 7;
+        else if (this instanceof Arqueiro) this.forcaDeDefesa = 5;
+        else if (this instanceof Guerreiro) this.forcaDeDefesa = 10;
+    }
+
+    public void receberDano(int dano) {
+        int danoFinal = Math.max(dano, 0);
+        this.pontosDeVida -= danoFinal;
+        System.out.println(nome + " recebeu " + danoFinal + " de dano! Vida restante: " + pontosDeVida);
+    }
 }
+
