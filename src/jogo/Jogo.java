@@ -43,15 +43,15 @@ public class Jogo {
             jogador2 = new Bot(p2); // Jogador 2 é um bot, não precisa de Scanner
             System.out.println("\nBot escolheu: Guerreiro Botão");
         }
-        // System.out.println("Jogadores prontos para o duelo!");
-        // System.out.println("Iniciando o duelo entre: \n" + jogador1.getPersonagem().getResumo());
-        // System.out.println("e " + jogador2.getPersonagem().getResumo());
+        System.out.println("Jogadores prontos para o duelo!");
+        System.out.println("Iniciando o duelo entre: \n" + jogador1.getPersonagem().getResumo());
+        System.out.println("e " + jogador2.getPersonagem().getResumo());
 
-        Tabuleiro tabuleiro = new Tabuleiro();
+        //Tabuleiro tabuleiro = new Tabuleiro();
 
         tabuleiro.posicionarAleatoriamente(jogador1.getPersonagem());
         tabuleiro.posicionarAleatoriamente(jogador2.getPersonagem());
-        // tabuleiro.imprimirTabuleiro();
+        tabuleiro.imprimirTabuleiro();
 
         Jogador jogadorAtual = jogador1;
         Jogador jogadorInimigo = jogador2;

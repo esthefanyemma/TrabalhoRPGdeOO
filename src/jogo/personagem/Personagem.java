@@ -47,24 +47,27 @@ public abstract class Personagem {
     }
 
     public void mover(String direcao, Tabuleiro tabuleiro) {
+        System.out.println(nome + " está se movendo para " + direcao);
         int novaLinha = linha;
         int novaColuna = coluna;
 
         switch (direcao.toLowerCase()) {
-            case "Cima" -> novaLinha--;
-            case "Baixo" -> novaLinha++;
-            case "Esquerda" -> novaColuna--;
-            case "Direita" -> novaColuna++;
+            case "cima" -> novaLinha--;
+            case "baixo" -> novaLinha++;
+            case "esquerda" -> novaColuna--;
+            case "direita" -> novaColuna++;
             default -> {
                 System.out.println("Direção inválida. Use 'Cima', 'Baixo', 'Esquerda' ou 'Direita'.");
                 return;
             }
         }
 
+        System.out.println("Tentando mover para (" + novaLinha + ", " + novaColuna + ")");
+
         if (tabuleiro.estaDentroDosLimites(novaLinha, novaColuna)
             && !tabuleiro.posicaoOcupada(novaLinha, novaColuna)) {
         tabuleiro.moverPersonagem(this, novaLinha, novaColuna);
-        System.out.println("Movimentado para (" + novaLinha + ", " + novaColuna + ")");
+        System.out.println("Movimentado para (" + novaLinha + ", " + novaColuna + ") com sucesso!");
         } else {
         System.out.println("Movimento inválido.");
         }

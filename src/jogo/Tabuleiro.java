@@ -21,12 +21,16 @@ public class Tabuleiro {
     }
 
     public void moverPersonagem(Personagem p, int novaLinha, int novaColuna) {
+        System.out.println(p.getNome() + " está se movendo para a posição (" + novaLinha + ", " + novaColuna + ")");
         if (estaDentroDosLimites(novaLinha, novaColuna) && grid[novaLinha][novaColuna] == null) {
             grid[p.getLinha()][p.getColuna()] = null; // Remove da posição antiga
             grid[novaLinha][novaColuna] = p; // Adiciona na nova posição
             p.setLinha(novaLinha);
             p.setColuna(novaColuna);
-        } 
+            System.out.println("Movimentado para (" + novaLinha + ", " + novaColuna + ") com sucesso!");
+        } else {
+            System.out.println("Movimento inválido.");
+        }
     }
 
     public boolean estaDentroDosLimites(int linha, int coluna) {
