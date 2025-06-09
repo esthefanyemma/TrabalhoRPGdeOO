@@ -11,8 +11,6 @@ public abstract class Personagem {
     protected int linha;
     protected int coluna;
 
-    public abstract void usarPoderEspecial(Personagem inimigo, Tabuleiro tabuleiro);
-
     public String getResumo() {
         return String.format("%s (%s) (Vida: %d | Ataque: %d | Defesa: %d | Alcance: %d)",
                 nome, this.getClass().getSimpleName(), pontosDeVida, forcaDeAtaque, forcaDeDefesa, alcanceDeAtaque);
@@ -44,6 +42,10 @@ public abstract class Personagem {
 
     public void setPontosDeVida(int pontosDeVida) {
         this.pontosDeVida = pontosDeVida;
+    }
+
+    public int getAlcanceDeAtaque() {
+        return alcanceDeAtaque;
     }
 
     public void mover(String direcao, Tabuleiro tabuleiro) {
@@ -102,6 +104,22 @@ public abstract class Personagem {
         int danoFinal = Math.max(dano, 0);
         this.pontosDeVida -= danoFinal;
         System.out.println(nome + " recebeu " + danoFinal + " de dano! Vida restante: " + pontosDeVida);
+    }
+
+    protected boolean poderEspecialUsado = false;
+
+    public boolean temPoderEspecial() {
+        return !poderEspecialUsado;
+    }
+
+    public abstract void usarPoderEspecial(Personagem inimigo, Tabuleiro tabuleiro);
+
+    public boolean poderEspecialUsado() {
+        return poderEspecialUsado;
+    }
+
+    public void resetarPoderEspecial() {
+        poderEspecialUsado = false;
     }
 }
 
