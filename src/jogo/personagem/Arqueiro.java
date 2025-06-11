@@ -12,7 +12,20 @@ public class Arqueiro extends Personagem {
 
     @Override
     public void usarPoderEspecial(Personagem inimigo, Tabuleiro tabuleiro) {
-        this.alcanceDeAtaque++;
-        System.out.println(nome + " usou o poder especial e aumentou seu alcance de ataque para " + alcanceDeAtaque + ".");
+        if (poderEspecialUsado) {
+            System.out.println(nome + " já usou o poder especial e não pode usá-lo novamente.");
+            return;
+        }
+
+        // Flecha precisa (ignora defesa)
+        int defesaOriginal = inimigo.forcaDeDefesa;
+        inimigo.forcaDeDefesa = 0;
+
+        System.out.println(nome + " usa o poder especial!");
+        System.out.println(nome + " ataca " + inimigo.getNome() + " com uma flecha precisa!");
+
+        this.atacar(inimigo, tabuleiro);
+        inimigo.forcaDeDefesa = defesaOriginal; // Restaura a defesa original do inimigo
+        poderEspecialUsado = true; // Marca que o poder especial foi usado
     }
 }
