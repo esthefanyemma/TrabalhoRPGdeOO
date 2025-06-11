@@ -16,11 +16,18 @@ public class Mago extends Personagem {
             System.out.println(nome + " já usou o poder especial e não pode usá-lo novamente.");
             return;
         }
-        int temp = this.pontosDeVida;
-        this.pontosDeVida = inimigo.getPontosDeVida();
-        inimigo.setPontosDeVida(temp);
+
+        int vidaAtual = this.pontosDeVida;
+        int vidaInimigo = inimigo.getPontosDeVida();
+
+        System.out.println(nome + " usa o poder especial!");
+
+        this.pontosDeVida = vidaInimigo;
+        inimigo.setPontosDeVida(vidaAtual);
+
+        System.out.println("Vida de " + nome + " agora é " + this.pontosDeVida);
+        System.out.println("Vida de " + inimigo.getNome() + " agora é " + inimigo.getPontosDeVida());
 
         poderEspecialUsado = true; // Marca que o poder especial foi usado
-        System.out.println(nome + " usou o poder especial e trocou de vida com " + inimigo.getNome() + ".");
     }
 }

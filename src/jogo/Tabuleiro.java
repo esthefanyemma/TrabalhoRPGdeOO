@@ -6,6 +6,10 @@ public class Tabuleiro {
     private final int TAMANHO = 10;
     private Personagem[][] grid = new Personagem[TAMANHO][TAMANHO];
 
+    public Personagem[][] getGrid() {
+        return grid;
+    }
+
     public void posicionarAleatoriamente(Personagem p) {
         Random random = new Random();
         int linha, coluna;
@@ -34,7 +38,8 @@ public class Tabuleiro {
     }
 
     public boolean estaDentroDosLimites(int linha, int coluna) {
-        return linha >= 0 && linha < TAMANHO && coluna >= 0 && coluna < TAMANHO;
+        return linha >= 0 && linha < grid.length &&
+        coluna >= 0 && coluna < grid[0].length;
     }
 
     public int calcularDistancia(Personagem p1, Personagem p2) {

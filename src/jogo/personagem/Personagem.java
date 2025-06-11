@@ -66,31 +66,49 @@ public abstract class Personagem {
 
         System.out.println("Tentando mover para (" + novaLinha + ", " + novaColuna + ")");
 
-        if (tabuleiro.estaDentroDosLimites(novaLinha, novaColuna)
-            && !tabuleiro.posicaoOcupada(novaLinha, novaColuna)) {
-        tabuleiro.moverPersonagem(this, novaLinha, novaColuna);
-        System.out.println("Movimentado para (" + novaLinha + ", " + novaColuna + ") com sucesso!");
+        if (tabuleiro.estaDentroDosLimites(novaLinha, novaColuna)) {
+            if (!tabuleiro.posicaoOcupada(novaLinha, novaColuna)) {
+
+                // Limpa a posição atual
+                tabuleiro.getGrid()[linha][coluna] = null;
+
+                tabuleiro.getGrid()[novaLinha][novaColuna] = this; // Move o personagem para a nova posição
+                this.linha = novaLinha;
+                this.coluna = novaColuna;
+
+                System.out.println(nome + " se moveu para (" + novaLinha + ", " + novaColuna + ")");
+            } else {
+                System.out.println("Posição ocupada! Você perdeu a vez");
+            }
         } else {
-        System.out.println("Movimento inválido.");
+            System.out.println("Movimento fora dos limites do tabuleiro! Você perdeu a vez");
         }
     }
 
     public void atacar(Personagem inimigo, Tabuleiro tabuleiro) {
-        int distancia = tabuleiro.calcularDistancia(this, inimigo);
+        System.out.println(nome + " está atacando " + inimigo.getNome() + "!");
 
-        if (distancia > alcanceDeAtaque) {
-            System.out.println("Inimigo fora de alcance! Você perdeu a vez");
+        if (tabuleiro.calcularDistancia(this, inimigo) > alcanceDeAtaque) {
+            System.out.println(inimigo.getNome() + " está fora do alcance de ataque!");
             return;
         }
 
         int dano = Math.max(0, forcaDeAtaque - inimigo.forcaDeDefesa);
+        System.out.println(nome + " causa " + dano + " de dano a " + inimigo.getNome() + ".");
         inimigo.receberDano(dano);
-        System.out.println(nome + " atacou " + inimigo.nome + " causando " + dano + " de dano!");
     }
 
     public void defender() {
-        System.out.println(nome + " está se defendendo! Defesa restaurada.");
-        restaurarDefesa();
+        System.out.println(nome + " está se defendendo!");
+        
+        if (this instanceof Mago) {
+            this.forcaDeDefesa = 7; // Defesa do Mago
+        } else if (this instanceof Arqueiro) {
+            this.forcaDeDefesa = 5; // Defesa do Arqueiro
+        } else if (this instanceof Guerreiro) {
+            this.forcaDeDefesa = 10; // Defesa do Guerreiro
+        }
+        System.out.println(nome + " agora tem " + forcaDeDefesa + " de defesa.");
     }
 
     public void restaurarDefesa() {

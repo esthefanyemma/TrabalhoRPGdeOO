@@ -51,7 +51,6 @@ public class Jogo {
 
         tabuleiro.posicionarAleatoriamente(jogador1.getPersonagem());
         tabuleiro.posicionarAleatoriamente(jogador2.getPersonagem());
-        tabuleiro.imprimirTabuleiro();
 
         Jogador jogadorAtual = jogador1;
         Jogador jogadorInimigo = jogador2;
@@ -61,6 +60,8 @@ public class Jogo {
 
             System.out.println("\nVez de: " + jogadorAtual.getPersonagem().getNome());
             System.out.println("Pontos de Vida: " + jogadorAtual.getPersonagem().getPontosDeVida());
+            System.out.println("Resumo do inimigo: " + jogadorInimigo.getPersonagem().getResumo());
+            System.out.println("Meu resumo: " + jogadorAtual.getPersonagem().getResumo());
 
             jogadorAtual.realizarAcao(tabuleiro, jogadorInimigo);
 
